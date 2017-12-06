@@ -1,0 +1,18 @@
+{
+  "applicationName": "test",
+  "listOfStrings": ["1", "2"],
+  "complexObject": {
+    "stringField" : "test"
+  },
+  "listOfComplexObjects": [
+    {
+      "stringField" : "1"
+    },
+    {
+      "stringField" : "2"
+    },
+    {
+      "stringField" : "3"
+    }
+  ]
+}

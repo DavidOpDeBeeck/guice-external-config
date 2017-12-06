@@ -1,0 +1,26 @@
+group 'de.daxu'
+version '1.0'
+
+apply plugin: 'java'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    guiceVersion = '4.0'
+    reflectionVersion = '0.9.10'
+    jacksonVersion = '2.9.2'
+    junitVersion = '4.12'
+    assertjVersion = '3.8.0'
+}
+
+dependencies {
+    compile "com.google.inject:guice:${guiceVersion}"
+    compile "org.reflections:reflections:${reflectionVersion}"
+    compile "com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}"
+    testCompile "junit:junit:${junitVersion}"
+    testCompile "org.assertj:assertj-core:${assertjVersion}"
+}
