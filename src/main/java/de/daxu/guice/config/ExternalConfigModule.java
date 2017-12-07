@@ -2,6 +2,10 @@ package de.daxu.guice.config;
 
 import com.google.inject.AbstractModule;
 
+import java.util.Arrays;
+
+import static java.util.Arrays.stream;
+
 public class ExternalConfigModule extends AbstractModule {
 
     private final ConfigurationLocator locator;
@@ -23,6 +27,13 @@ public class ExternalConfigModule extends AbstractModule {
 
     private void bindConfigurationClass(Class<Object> configurationClass) {
         Object instance = resolver.resolve(configurationClass);
+        bindConfigurationToInterfaces(instance);
         bind(configurationClass).toInstance(instance);
+    }
+
+    @SuppressWarnings("unchecked")
+    private void bindConfigurationToInterfaces(Object instance) {
+        stream(instance.getClass().getInterfaces())
+                .forEach(interfaceClass ->bind((Class<Object>) interfaceClass).toInstance(instance));
     }
 }
