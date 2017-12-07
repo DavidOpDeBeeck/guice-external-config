@@ -2,8 +2,6 @@ package de.daxu.guice.config;
 
 import com.google.inject.AbstractModule;
 
-import java.util.Arrays;
-
 import static java.util.Arrays.stream;
 
 public class ExternalConfigModule extends AbstractModule {
@@ -34,6 +32,6 @@ public class ExternalConfigModule extends AbstractModule {
     @SuppressWarnings("unchecked")
     private void bindConfigurationToInterfaces(Object instance) {
         stream(instance.getClass().getInterfaces())
-                .forEach(interfaceClass ->bind((Class<Object>) interfaceClass).toInstance(instance));
+                .forEach(interfaceClass -> bind((Class<Object>) interfaceClass).toInstance(instance));
     }
 }

@@ -1,6 +1,5 @@
 package de.daxu.guice.config;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.daxu.guice.config.fileloader.FileLoader;
 import de.daxu.guice.config.fileloader.FileLoaderFactory;

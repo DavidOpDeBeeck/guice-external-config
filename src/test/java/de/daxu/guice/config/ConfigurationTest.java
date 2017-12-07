@@ -4,7 +4,6 @@ import com.google.inject.Injector;
 import com.google.inject.Module;
 import de.daxu.guice.config.testing.*;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -14,7 +13,7 @@ import java.util.Collection;
 
 import static com.google.inject.Guice.createInjector;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.runners.Parameterized.*;
+import static org.junit.runners.Parameterized.Parameters;
 
 @RunWith(Parameterized.class)
 public class ConfigurationTest {
