@@ -2,16 +2,18 @@ package de.daxu.guice.config;
 
 import com.google.inject.AbstractModule;
 
-import static java.util.Arrays.stream;
+import java.util.*;
+
+import static java.util.Arrays.asList;
 
 public class ExternalConfigModule extends AbstractModule {
 
     private final ConfigurationLocator locator;
     private final ConfigurationResolver resolver;
 
-    public ExternalConfigModule(String... packagesToScan) {
+    private ExternalConfigModule(Map<Class<?>, Object> configurationTemplateMap, Set<String> packagesToScan) {
         this.locator = new ConfigurationLocator(packagesToScan);
-        this.resolver = new ConfigurationResolver();
+        this.resolver = new ConfigurationResolver(configurationTemplateMap);
     }
 
     @Override
@@ -25,13 +27,26 @@ public class ExternalConfigModule extends AbstractModule {
 
     private void bindConfigurationClass(Class<Object> configurationClass) {
         Object instance = resolver.resolve(configurationClass);
-        bindConfigurationToInterfaces(instance);
         bind(configurationClass).toInstance(instance);
     }
 
-    @SuppressWarnings("unchecked")
-    private void bindConfigurationToInterfaces(Object instance) {
-        stream(instance.getClass().getInterfaces())
-                .forEach(interfaceClass -> bind((Class<Object>) interfaceClass).toInstance(instance));
+    public static class Builder {
+
+        private final Map<Class<?>, Object> configurationTemplateMap = new HashMap<>();
+        private final Set<String> packagesToScan = new HashSet<>();
+
+        public Builder withTemplate(Class<?> configurationClass, Object template) {
+            this.configurationTemplateMap.put(configurationClass, template);
+            return this;
+        }
+
+        public Builder withPackagesToScan(String ... packagesToScan) {
+            this.packagesToScan.addAll(asList(packagesToScan));
+            return this;
+        }
+
+        public ExternalConfigModule build() {
+            return new ExternalConfigModule(configurationTemplateMap, packagesToScan);
+        }
     }
 }

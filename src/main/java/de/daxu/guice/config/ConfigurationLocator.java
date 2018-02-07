@@ -8,8 +8,8 @@ class ConfigurationLocator {
 
     private final Reflections reflections;
 
-    ConfigurationLocator(String... packages) {
-        this.reflections = new Reflections((Object[]) packages);
+    ConfigurationLocator(Set<String> packages) {
+        this.reflections = new Reflections(packages);
     }
 
     Set<Class<?>> findAllConfigurations() {

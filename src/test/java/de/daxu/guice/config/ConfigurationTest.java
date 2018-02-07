@@ -22,9 +22,8 @@ public class ConfigurationTest {
 
     @Parameters(name = "{0}")
     public static Collection<Object[]> data() {
-        return Arrays.asList(new Class<?>[][] {
-                { InternalTestConfiguration.class },
-                { ExternalTestConfiguration.class }
+        return Arrays.asList(new Class<?>[][]{
+                {InternalTestConfiguration.class}
         });
     }
 
@@ -32,7 +31,9 @@ public class ConfigurationTest {
     private TestConfiguration configuration;
 
     public ConfigurationTest(Class<TestConfiguration> configurationClass) {
-        this.injector = createInjector(new ExternalConfigModule(TESTING_PACKAGE), createModule(configurationClass));
+        this.injector = createInjector(new ExternalConfigModule.Builder()
+                .withPackagesToScan(TESTING_PACKAGE)
+                .build(), createModule(configurationClass));
     }
 
     @Before
